@@ -29,9 +29,9 @@ function App() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
-      <div className="bg-gray-200 p-8 rounded-2xl shadow-lg w-80">
+      <div className="bg-gray-800 p-8 rounded-2xl shadow-lg w-80">
         {/* Calculator Display */}
-        <div className="bg-gray-900 rounded-lg text-right px-5 py-4 mb-6 text-4xl font-light text-white h-20 flex items-center justify-end overflow-hidden whitespace-nowrap">
+        <div className="bg-gray-200 rounded-lg text-right px-5 py-4 mb-6 text-4xl font-light text-white h-20 flex items-center justify-end overflow-hidden whitespace-nowrap">
           {display || "0"}
         </div>
 
