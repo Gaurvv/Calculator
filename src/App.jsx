@@ -4,43 +4,50 @@ import Button from "./Components/button";
 function App() {
   const [display, setDisplay] = useState("");
 
-  let arr = [
-    "1",
-    "2",
-    "3",
-    "*",
-    "4",
-    "5",
-    "6",
-    "-",
-    "7",
-    "8",
-    "9",
-    "+",
-    "00",
-    "0",
-    "/",
+  const buttons = [
+    "AC", "/", "*", "-",
+    "7", "8", "9", "+",
+    "4", "5", "6", "1",
+    "2", "3", "0", "00",
+    ".", "="
   ];
 
+  const handleButtonClick = (value) => {
+    if (value === "AC") {
+      setDisplay("");
+    } else if (value === "=") {
+      try {
+        // Evaluate the expression, handling potential errors
+        setDisplay(eval(display).toString());
+      } catch (error) {
+        setDisplay("Error");
+      }
+    } else {
+      setDisplay((prev) => prev + value);
+    }
+  };
+
   return (
-    <div className="absolute top-20 left-1/2 -translate-x-1/2 bg-[#2c2c2c] p-6 rounded-3xl shadow-2xl w-[300px]">
-      <div className="bg-gray-200 rounded-t-xl text-right px-4 py-4 mb-5 text-2xl font-bold text-black h-[56px] overflow-hidden whitespace-nowrap">
-        {display || "0"}
-      </div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="bg-gray-800 p-8 rounded-2xl shadow-lg w-80">
+        {/* Calculator Display */}
+        <div className="bg-gray-900 rounded-lg text-right px-5 py-4 mb-6 text-4xl font-light text-white h-20 flex items-center justify-end overflow-hidden whitespace-nowrap">
+          {display || "0"}
+        </div>
 
-      <div className="flex justify-between mb-5">
-        <Button title={"AC"} onClick={() => setDisplay("")} />
-        <Button title={"="} onClick={() => setDisplay(eval(display))} />
-      </div>
-
-      <div className="flex flex-wrap justify-between">
-        {arr.map((item, index) => (
-          <Button
-            key={index}
-            title={item}
-            onClick={() => setDisplay((prev) => prev + item)}
-          />
-        ))}
+        {/* Buttons Grid */}
+        <div className="grid grid-cols-4 gap-3">
+          {buttons.map((item, index) => (
+            <Button
+              key={index}
+              title={item}
+              onClick={() => handleButtonClick(item)}
+              isOperator={["/", "*", "-", "+", "=", "AC"].includes(item)}
+              isEquals={item === "="}
+              isClear={item === "AC"}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
